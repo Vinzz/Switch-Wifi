@@ -1,4 +1,4 @@
-# En cas d'erreur sur l'execution policy
+# In case of execution policy error, launch this command in an elevated powershell
 # Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 
 # Elevation des privileges
