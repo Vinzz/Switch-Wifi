@@ -14,6 +14,8 @@ Try
 		Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
 		exit
 	}
+	
+	"1/6 - Accès à la livebox"
 
 	#IE automation
 	$ie = new-object -com "InternetExplorer.Application"
@@ -33,31 +35,41 @@ Try
 	#Click on login
 	$button = $links | where {$_.Title -eq 'Accéder'}
 	$button.click()
-
+	
+	"2/6 - Login console administration"
+	
 	Start-Sleep -s 3
 
 	#Click on configuration
 	$doc.getElementByID("rubric2").click()
 
+	"3/6 - Accès configuration"
+	
 	Start-Sleep -s 2
 
 	#Click on wifi
+	"4/6 - Paramètres Wifi"
+	
 	$doc.getElementByID("link6").click()
 
 	Start-Sleep -s 2
 
 	$a = new-object -comobject wscript.shell
 
+	"5/6 - Check Wifi"
+	
 	#Wifi checkbox exist test
 	if($doc.getElementById("wifistatus"))
 	{
 	    if($doc.getElementById("wifistatus").Checked -eq "True")
 	    {
-		$b = $a.popup("Coupure Wifi",5,”Wifi Switch”,64)
+	        "6/6 - Coupure Wifi"
+		    $b = $a.popup("Coupure Wifi",2,”Wifi Switch”,64)
 	    }
 	    else
 	    {
-		$b = $a.popup("Mise en route Wifi",5,”Wifi Switch”,64)
+            "6/6 - Mise en route Wifi"
+		    $b = $a.popup("Mise en route Wifi",2,”Wifi Switch”,64)
 	    }
 
 	#Click on wifi checkbox
@@ -86,3 +98,6 @@ Catch
     
     Break
 }
+
+"...Fin du script"
+Exit 
